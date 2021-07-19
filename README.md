@@ -1,2 +1,2 @@
 # glider-simulation
-Simulated underwater glider samplng for Antarctic krill
+Simulated underwater glider sampling for Antarctic krill
