@@ -1,3 +1,5 @@
+gldry <-function(std.yo.depth.m=200,shutoff.azfp.m=200,max.z.m=200,
+        yo.locs=rep('a',25)){
 angle.deg=22.7
 # std.yo.depth.m=200 # assigned in calling script
 azfp.range.m=100
@@ -88,3 +90,5 @@ ship.effective.m=250
       if(break.me){break}
     } # end j loop
   } # end i loop 
+return(list(n.yos,out,azfp.range.m,bin.depth.m))
+} # end gldry()
