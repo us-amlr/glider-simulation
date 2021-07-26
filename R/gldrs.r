@@ -5,7 +5,6 @@ gldrs <- function(NASC.yrs = c(2001:2009,2011),AMLR.area = 'SA',n.rep = 9,n.gldr
                       save.tables = 0,max.NASC.m = 250,depths = c(150,1000),azfp.off = c(150,150),
                       qntl.vals = c(0.97,0.98,0.99,0.999,1),smpl.st = 0 
                       ){
-print(Sys.time())
 max.z.m <- max.NASC.m #??
 if(save.tables == 1){
     dir.create('yo_sums')
@@ -181,4 +180,3 @@ for(i.depth in 1:length(depths)){
   } # end save.tables
  } # end of i.depth loop
 } # end function gldrs()
-print(Sys.time())
