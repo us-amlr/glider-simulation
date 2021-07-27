@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Introduction
 
 
-These functions simulate the ability of the spatial sampling patterns of autonomous underwater gliders to sample the acoustic energy returns attributed to Antarctic krill. A database of krill acoustic densities collected during US AMLR ship surveys from two strata in CCAMLR Subarea 48.1 from 1992 to 2011 is sampled using the sawtooth vertical pattern of underwater gliders equiped with echosounders that ensonify the water column vertically 100 m below the gliders in this up and down pattern (each descent and return is called a 'yo') to a maximum depth of between 150 or 1000 m per dive in this example. Any maximum yo depth can be simulated, but the acoustic data available from US AMLR ship surveys ends at 500 m. Here the gliders ensonify the first 250 m of the water column regardless of maximum yo depth.
+Two functions, gldsr() and gldry(), simulate the ability of the spatial patterns of autonomous underwater gliders to sample the acoustic energy returns attributed to Antarctic krill. A database of krill acoustic densities collected during US AMLR ship surveys from two strata in CCAMLR Subarea 48.1 from 1992 to 2011 is sampled using the sawtooth vertical pattern of underwater gliders equiped with echosounders that ensonify the water column vertically 100 m below the gliders in this up and down pattern (each descent and return is called a 'yo') to a maximum depth of between 150 or 1000 m per dive in this example. Any maximum yo depth can be simulated, but the acoustic data available from US AMLR ship surveys ends at 500 m. Here the gliders ensonify the first 250 m of the water column regardless of maximum yo depth.
 
 
 # Load the databases
