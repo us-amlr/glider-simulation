@@ -25,7 +25,7 @@ leg1 <- read.csv('leg1.csv')
 ```
 
 # Source the R code
-There are two R scripts, 'gldry.r', and 'gldrs.r' containing two functions, 'gldry()', which calculates the path a glider would follow from a given starting position and maximum yo depth and 'gldrs()', which reads the input parameters and calculates four input parameters that are passed to 'gldry()'. 'gldry()' calculates the glider sampling pattern and returns this pattern and three other parameters to 'gldrsl()' which then uses the glider sampling pattern on the acoustic database.
+There are two R scripts, 'gldry.r', and 'gldrs.r' containing two functions, 'gldry()', which calculates the path a glider would follow from a given starting position and maximum yo depth and 'gldrs()', which reads the input parameters and calculates four arguments that are passed to 'gldry()'. 'gldry()' calculates the glider sampling pattern and returns this pattern and three other arguments to 'gldrsl()' which then uses the glider sampling pattern on the acoustic database.
 
 ```{r}
 source('gldry.r')
