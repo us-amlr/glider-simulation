@@ -2,7 +2,7 @@
 title: "Glider sampling simulation figures"
 author:
   - Doug Kinzey, AERD
-date: "08/17/2021"
+date: "08/23/2021"
 output: html_document
 ---
 
@@ -18,7 +18,7 @@ load('NASC_leg1.RData')
 ```
 
 # Figure 2: Sample paths of 3 yos to maximum depth of 150 m, and 1000 m
-```{r f2, fig.width=3.5,fig.height=3.5}
+```{r f2, ,fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
 source('Fig2.r')
 Fig2()
 
@@ -37,9 +37,17 @@ source('Fig3.r')
 Figure 3. Mean acoustic backscatter coefficients (sa) in 5 m depth bins of the population being sampled by simulated gliders for both strata and all years combined.
 
 # Figure 4: Plot the CV of s[a]  and the proportion of zero density bins at each 5m depth in the database
-```{r fig4, fig.width=3.5,fig.height=4}
-source('Fig4a.r')
-source('Fig4b.r')
+```{r fig4, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
+source('Fig4.r')
 ```
 
 Figure 4. CVs of acoustic backscatter (left) and proportions of bins with zero acoustic energy (right) at depth in the combined database sampled by the simulated gliders.
+
+# Figure 5
+
+Figure 5 shows the fit of the glider samples ('gldr.smpls.yrs') of acoustic density (s[a]) to the operating model values ('ship.sums') for each strata and year. 'plot_Sa_fits.r' plots the fits of the glider samples (grey) to the operating model (red). Figure 5 requires 'Glider_simulation.rmd' to have been already rendered to provide the data. The example shows 9 replicates. More replicates can be sampled using the 'n.reps' argument to 'Fig5.r'.
+
+```{r Fig5, fig.width=7,fig.height=7,}
+source('Fig5.r')
+source('plot_Sa_fits.r')
+```
