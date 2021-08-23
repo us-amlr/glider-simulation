@@ -78,4 +78,7 @@ gldrs(NASC.yrs,AMLR.area,n.rep,n.gldr,
 Sys.time()
 ```
 
+# Next steps
+
+After 'Gldr_simulation.rmd' has been rendered, the working directory will contain output files from the simulation. These can be plotted using 'Figures.rmd' in the 'Figs' folder.
 
