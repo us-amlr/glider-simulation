@@ -2,7 +2,7 @@
 title: "Simulated underwater glider sampling for Antarctic krill"
 author:
   - Doug Kinzey, AERD
-date: "07/26/2021"
+date: "09/07/2021"
 output: html_document
 ---
 
@@ -61,8 +61,8 @@ n.rep = 9
 n.gldr = c(1)
 save.tables = 1
 max.NASC.m = 250
-depths = c(150,1000)
-azfp.off = c(150,150)
+depths = c(150)
+azfp.off = c(150)
 qntl.vals = c(0.97,0.98,0.99,0.999,1)
 smpl.st = 0
 ```
