@@ -2,7 +2,7 @@
 title: "Glider sampling simulation figures"
 author:
   - Doug Kinzey, AERD
-date: "08/23/2021"
+date: "09/07/2021"
 output: html_document
 ---
 
@@ -47,7 +47,24 @@ Figure 4. CVs of acoustic backscatter (left) and proportions of bins with zero a
 
 Figure 5 shows the fit of the glider samples ('gldr.smpls.yrs') of acoustic density (s[a]) to the operating model values ('ship.sums') for each strata and year. 'plot_Sa_fits.r' plots the fits of the glider samples (grey) to the operating model (red). Figure 5 requires 'Glider_simulation.rmd' to have been already rendered to provide the data. The example shows 9 replicates. More replicates can be sampled using the 'n.reps' argument to 'Fig5.r'.
 
-```{r Fig5, fig.width=7,fig.height=7,}
+```{r Fig5, fig.width=7,fig.height=7}
 source('Fig5.r')
-source('plot_Sa_fits.r')
+source('Fig5b.r')
 ```
+Figure 5. Annual glider logged sample means and SDs (blue) from 500 individual replicates (gray) of 1 glider with a maximum yo depth of 150 m sampling acoustic energy (sa) with individual yos as sampling units in Bransfield Strait (a), Cape Shirreff (b). In all plots, the population means (from the original ship surveys) are in red.
+
+# Figure 6
+
+The acoustic densities at depth from the ship surveys (the 'operating model') and the sampled densities from all replicate gliders, from one glider, and from five gliders at depth.
+
+```{r fig6, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
+source('Fig6.r')
+Fig6()
+```
+```{r fig6 caption, }
+paste('Figure 6. Acoustic energy contours with depth for gliders with maximum yo depths/n',
+'of 150 m from ', AMLR.area,'. The true energies ("population"), the mean of all glider/n',
+'replicates, the mean of 5 glider replicates ("5 random gliders") and one glider/n',
+'("1 random glider") are shown.',sep='')
+```
+
