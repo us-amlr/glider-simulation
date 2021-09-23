@@ -1,0 +1,24 @@
+---
+title: "Glider sampling simulation figure 8"
+author:
+  - Doug Kinzey, AERD
+date: "09/22/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Figure 8.
+
+```{r fig8, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
+source('Fig8.r')
+Fig8(gldr.pths = 1)
+Fig8(gldr.pths = 1,depths = 200)
+Fig8(gldr.pths = 1,depths = 300)
+Fig8(gldr.pths = 1,depths = 400)
+Fig8(gldr.pths = 1,depths = 500)
+Fig8(gldr.pths = 1,depths = 700)
+Fig8(gldr.pths = 1,depths = 1000)
+```
