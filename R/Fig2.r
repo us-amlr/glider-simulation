@@ -81,11 +81,11 @@ ship.effective.m=250){
   } # end i loop 
 
 # set up the color scheme
-    cols<- c(rep("black",3),"light gray")
+    cols<- c(rep('black',3),'light gray')
     cols.at<-0:(n.yos+1)
   
-  Xlab<-"Surface Distance (m)"
-  Ylab<-"Depth (m)"
+  Xlab<-'Surface Distance (m)'
+  Ylab<-'Depth (m)'
   
 out.plot<-levelplot(dive.id~d.bin*100+I(-z.bin)*5,data=out,col.regions=cols,at=cols.at,
  		      scales=list(x=list(cex=0.9),y=list(cex=0.9)),

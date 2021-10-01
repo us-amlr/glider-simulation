@@ -10,14 +10,14 @@ strt <- Sys.time()
 
 Fig6 <- function(depths = c(150), AMLR.area = 'SA', max.z.b = 50, NASC.yrs = c(2001:2009,2011), n.reps = 9, n.gldr = c(1) ){
   dat.biom <- list() # dat.NASC also a list in 'R_5_contour_cgldr_mac.txt'
-  cgldr.pth <- paste(getwd(),"/tables/cgldrs/",sep="")
-  s.pth <- paste(getwd(),"/tables/smpl_paths/",sep="")
+  cgldr.pth <- paste(getwd(),'/tables/cgldrs/',sep='')
+  s.pth <- paste(getwd(),'/tables/smpl_paths/',sep='')
   dbins <- rev(c(1:max.z.b)) # 5m depth bins sampled by gliders
   depth.means <- array(dim=c(length(NASC.yrs),max.z.b))
   ship.NASC <- list() # dat.NASC[[iyr]][[i.depth]] in 'R_5_contour_cgldr_mac.txt'
   for (iyr in 1:length(NASC.yrs)){
-    ship.NASC[[iyr]] <- read.csv(paste("tables/NASC_yrs/",
-      n.gldr,'_',AMLR.area,"_",NASC.yrs[iyr],"_NASC_DAT.csv",sep=''))
+    ship.NASC[[iyr]] <- read.csv(paste('tables/NASC_yrs/',
+      n.gldr,'_',AMLR.area,'_',NASC.yrs[iyr],'_NASC_DAT.csv',sep=''))
     ship.NASC[[iyr]] <- ship.NASC[[iyr]][,-1] # drop first column of
                                               # Process_ID and Interval values
     depth.means[iyr,] <- apply(ship.NASC[[iyr]],2,mean,na.rm=TRUE)
@@ -37,13 +37,13 @@ Fig6 <- function(depths = c(150), AMLR.area = 'SA', max.z.b = 50, NASC.yrs = c(2
     for(iyr in 1:length(NASC.yrs)){
      # 'depths' is max yo depth in meters
      tmp <- read.table(paste(cgldr.pth,n.gldr,'_', AMLR.area,'_',NASC.yrs[iyr]
-               ,"_",depths,"_cgldrs.txt",sep=""),header=TRUE)
+               ,'_',depths,'_cgldrs.txt',sep=''),header=TRUE)
                # only works for one cglider so far
         c.gldrs[[i.gldr]][[iyr]] <- array(dim=c(dim(tmp)))
         c.gldrs[[i.gldr]][[iyr]] <- tmp
         #cols.rep[iyr] <- ncol(c.gldrs[[i.gldr]][[iyr]])/n.reps
-        smpl.pths <- read.table(paste(s.pth,n.gldr,'_', AMLR.area,'_',NASC.yrs[iyr],"_",
-               depths,"_spths.txt",sep="")) # smpl.pths is for 1 replicate
+        smpl.pths <- read.table(paste(s.pth,n.gldr,'_', AMLR.area,'_',NASC.yrs[iyr],'_',
+               depths,'_spths.txt',sep='')) # smpl.pths is for 1 replicate
         mask <- array(NA,dim=c(nrow(smpl.pths),
               (ncol(smpl.pths)*n.reps)))
 	mask <- as.data.frame(mask)
@@ -62,7 +62,7 @@ Fig6 <- function(depths = c(150), AMLR.area = 'SA', max.z.b = 50, NASC.yrs = c(2
 	
 
   #######################
-  #plt.name <- "contour_ship.pdf"
+  #plt.name <- 'contour_ship.pdf'
   #pdf(file = plt.name) #,width=24,height=18)
   par(mfrow=c(1,1),cex=1.5,cex.lab=1.5,oma=c(2,2,2,0))
   depth.means[is.na(depth.means)]=0
@@ -70,80 +70,80 @@ Fig6 <- function(depths = c(150), AMLR.area = 'SA', max.z.b = 50, NASC.yrs = c(2
   filled.contour(x=c(1:length(NASC.yrs)),y=c(1:length(dbins)),
         z=depth.means[,50:1],
         axes = FALSE,#key.axis=FALSE,
-        main=paste("Population densities"),cex.main=1.5,
+        main=paste('Population densities'),cex.main=1.5,
         plot.axes = {
           axis(1,at = 1:length(NASC.yrs),labels=NASC.yrs)
 	  axis(2,at = length(dbins):1,labels=rev(dbins)*5)
           },
         key.axes = log(axis(4)),
-	key.title = title(expression(paste("(",s[a],")"))),
+	key.title = title(expression(paste('(',s[a],')'))),
         col=terrain.colors(11), #viridis(10),
-        xlab="Year",ylab="Depth (m)",
+        xlab='Year',ylab='Depth (m)',
         levels=c(0,0.1,0.5,1,2,3,5,8,12,24,50,max(depth.means,na.rm=TRUE))
         )
 #  dev.off()
 
   #######################
-#  plt.name <- paste(path.write,dbins,"contour_",n.reps,"reps.pdf",sep="")
+#  plt.name <- paste(path.write,dbins,'contour_',n.reps,'reps.pdf',sep='')
 #  pdf(file = plt.name) #,width=24,height=18)
   par(mfrow=c(1,1),cex=1.5,cex.lab=1.5,oma=c(2,2,2,0))
   gldr.smpls[is.na(gldr.smpls)]=0
   filled.contour(x=c(1:length(NASC.yrs)),y=c(1:length(dbins)),
         z=t(gldr.smpls[50:1,1:ncol(gldr.smpls),i.gldr]),
         axes = FALSE,#key.axis=FALSE,
-        main=paste("Mean densities from\n" ,n.reps," replicate gliders",sep=''),cex.main=1.5,
+        main=paste('Mean densities from\n' ,n.reps,' replicate gliders',sep=''),cex.main=1.5,
         plot.axes = {
           axis(1,at = 1:length(NASC.yrs),labels=NASC.yrs)
 	  axis(2,at = length(dbins):1,labels=rev(dbins)*5)
           },
         key.axes = log(axis(4)),
-	key.title = title(expression(paste("(",s[a],")"))),
+	key.title = title(expression(paste('(',s[a],')'))),
         col=terrain.colors(11), #viridis(10),
-        xlab="Year",ylab="Depth (m)",
+        xlab='Year',ylab='Depth (m)',
         levels=c(0,0.1,0.5,1,2,3,5,8,12,24,50,
 	       max(gldr.smpls,na.rm=TRUE))
         )
 #  dev.off()
 
   #######################
-#  plt.name <- paste(path.write,dbins,"contour_1rep.pdf",sep="")
+#  plt.name <- paste(path.write,dbins,'contour_1rep.pdf',sep='')
 #  pdf(file = plt.name) #,width=24,height=18)
   par(mfrow=c(1,1),cex=1.5,cex.lab=1.5,oma=c(2,2,2,0))
   gldr.smpls[is.na(gldr.smpls)]=0
   filled.contour(x=c(1:length(NASC.yrs)),y=c(1:length(dbins)),
         z=t(gldr.smpls.1[50:1,1:ncol(gldr.smpls.1),i.gldr]),
         axes = FALSE,#key.axis=FALSE,
-        main=paste("Mean densities from\n" ,"1 glider",sep=''),cex.main=1.5,
+        main=paste('Mean densities from\n' ,'1 glider',sep=''),cex.main=1.5,
         plot.axes = {
           axis(1,at = 1:length(NASC.yrs),labels=NASC.yrs)
 	  axis(2,at = length(dbins):1,labels=rev(dbins)*5)
           },
         key.axes = log(axis(4)),
-	key.title = title(expression(paste("(",s[a],")"))),
+	key.title = title(expression(paste('(',s[a],')'))),
         col=terrain.colors(11), #viridis(10),
-        xlab="Year",ylab="Depth (m)",
+        xlab='Year',ylab='Depth (m)',
         levels=c(0,0.1,0.5,1,2,3,5,8,12,24,50,
 	       max(gldr.smpls.1,na.rm=TRUE))
         )
 #  dev.off()
 
   #######################
-#  plt.name <- paste(path.write,dbins,"contour_5reps.pdf",sep="")
+#  plt.name <- paste(path.write,dbins,'contour_5reps.pdf',sep='')
 #  pdf(file = plt.name) #,width=24,height=18)
   par(mfrow=c(1,1),cex=1.5,cex.lab=1.5,oma=c(2,2,2,0))
   gldr.smpls[is.na(gldr.smpls)]=0
   filled.contour(x=c(1:length(NASC.yrs)),y=c(1:length(dbins)),
         z=t(gldr.smpls.5[50:1,1:ncol(gldr.smpls.5),i.gldr]),
         axes = FALSE,#key.axis=FALSE,
-        main=paste("Mean densities from\n" ,"5_replicate gliders",sep=''),cex.main=1.5,
+        main=paste('Mean densities from\n' ,'5_replicate gliders',sep=''),cex.main=1.5,
         plot.axes = {
           axis(1,at = 1:length(NASC.yrs),labels=NASC.yrs)
 	  axis(2,at = length(dbins):1,labels=rev(dbins)*5)
           },
         key.axes = log(axis(4)),
-	key.title = title(expression(paste("(",s[a],")"))),
+	key.title = title(expression(paste('(',s[a],')'))),
         col=terrain.colors(11), #viridis(10),
-        xlab="Year",ylab="Depth (m)",
+        xlab='Year',ylab='Depth (m)',
         levels=c(0,0.1,0.5,1,2,3,5,8,12,24,50,
 	       max(gldr.smpls.5,na.rm=TRUE))
         )
