@@ -2,7 +2,7 @@
 title: "Glider sampling simulation figures 2 to 7"
 author:
   - Doug Kinzey, AERD
-date: "09/30/2021"
+date: "11/18/2021"
 output: html_document
 ---
 
@@ -16,6 +16,19 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r load_data}
 Sys.time()
 load('NASC_leg1.RData')
+```
+
+```{r}
+NASC.yrs = c(2001:2009,2011)
+AMLR.area = 'SA'
+n.rep = 9
+n.gldr = c(1,2,3,4,5)
+save.tables = 1
+max.NASC.m = 250
+depths = c(150,200,300,400,500,700,1000)
+azfp.off = c(150,150,150,150,150,150,150) 
+qntl.vals = c(0.97,0.98,0.99,0.999,1)
+smpl.st = 0
 ```
 
 # Figure 2: Sample paths of 3 yos to maximum depth of 150 m, and 1000 m
@@ -50,7 +63,8 @@ Figure 5 shows the fit of the glider samples ('gldr.smpls.yrs') of acoustic dens
 
 ```{r Fig5, ,fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
 source('Fig5.r')
-Fig5(n.gldr=c(1,2,3))
+Fig5(NASC.yrs=NASC.yrs,AMLR.area=AMLR.area,n.rep=n.rep,n.gldr=n.gldr,
+    qntl.vals=c(qntl.vals,'sum','sd'),depths=depths,azfp.off=azfp.off)
 ```
 
 Figure 5. Annual glider logged sample means and SDs (blue) from 500 individual replicates (gray) of 1 glider with a maximum yo depth of 150 m sampling acoustic energy (sa) with individual yos as sampling units in Bransfield Strait (a), Cape Shirreff (b). In all plots, the population means (from the original ship surveys) are in red.
@@ -61,7 +75,8 @@ The acoustic densities at depth from the ship surveys (the 'operating model') an
 
 ```{r fig6, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
 source('Fig6.r')
-Fig6(n.gldr=c(1))
+Fig6(depths=depths[1],AMLR.area=AMLR.area,max.z.b = 50,n.gldr=n.gldr[1],
+     NASC.yrs=NASC.yrs,n.rep=n.rep)
 ```
 ```{r fig6 caption, }
 paste('Figure 6. Acoustic energy contours with depth for gliders with maximum yo depths/n',
@@ -76,17 +91,23 @@ These example contour plots are based on 9 replicate samples of from 1 to 5 glid
 
 ```{r fig7, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
 source('Fig7.r')
-Fig7(gldr.pths = c(1))
-Fig7(gldr.pths = c(2))
-Fig7(gldr.pths = c(3))
-Fig7(gldr.pths = c(4))
-Fig7(gldr.pths = c(5))
+Fig7(n.gldr = c(1),NASC.yrs=NASC.yrs,AMLR.area=AMLR.area,n.rep=n.rep,
+     qntl.vals=c(qntl.vals,'sum','sd'),depths=depths)
+Fig7(n.gldr = c(2),NASC.yrs=NASC.yrs,AMLR.area=AMLR.area,n.rep=n.rep,
+     qntl.vals=c(qntl.vals,'sum','sd'),depths=depths)
+Fig7(n.gldr = c(3),NASC.yrs=NASC.yrs,AMLR.area=AMLR.area,n.rep=n.rep,
+     qntl.vals=c(qntl.vals,'sum','sd'),depths=depths)
+Fig7(n.gldr = c(4),NASC.yrs=NASC.yrs,AMLR.area=AMLR.area,n.rep=n.rep,
+     qntl.vals=c(qntl.vals,'sum','sd'),depths=depths)
+Fig7(n.gldr = c(5),NASC.yrs=NASC.yrs,AMLR.area=AMLR.area,n.rep=n.rep,
+     qntl.vals=c(qntl.vals,'sum','sd'),depths=depths)
 ```
 
 Contour plots of numbers of glider combinations X maximum depth X year require at least 3 maximum yo depths and at least 3 glider combinations (i.e., 1 to 5 gliders per replicate).
 
 ```{r fig7_contours, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
 source('Fig7_contours.r')
-Fig7_contours(n.gldr.pth = c(1,2,3,4,5))
+Fig7_contours(n.gldr = n.gldr,NASC.yrs=NASC.yrs,AMLR.area=AMLR.area,
+              n.rep=n.rep,depths=depths)
 Sys.time()
 ```
