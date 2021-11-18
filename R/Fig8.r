@@ -5,7 +5,7 @@ Fig8 <- function(NASC.yrs = c(2001:2009,2011),
   depths = c(
             150 #,200,300,400,500,700,1000
            ), 
-  gldr.pths = c('1') # one set of glider combinations at a time
+  n.gldr = c('1') # one set of glider combinations at a time
   ){
 
 if(!dir.exists('Fig8'))
@@ -15,12 +15,12 @@ for(i.area in 1: length(AMLR.area)){
   ship.m <- ship.stats[,'sum']
   ship.sd <- ship.stats[,'sd']
 
-  for(i.gldr in 1:length(gldr.pths))
+  for(i.gldr in 1:length(n.gldr))
   for(i.depth in 1:length(depths)){  
     gldr.m.l <- gldr.sd <- gldr.m  <- list() # dim for each year will be n.yos X n.reps
     gldr.t.m <- gldr.t.sd <- vector() # the mean or sd of all yos for each year
     for(iyr in 1:length(NASC.yrs)){
-      gldr.m.l[[iyr]] <- read.table(paste('tables/yo_sums/',gldr.pths[i.gldr],'_',
+      gldr.m.l[[iyr]] <- read.table(paste('tables/yo_sums/',n.gldr[i.gldr],'_',
                        AMLR.area[i.area],'_',NASC.yrs[iyr],'_',depths[i.depth],'_yo_sums.txt',sep=''))
       gldr.t.m[iyr] <- mean(unlist(gldr.m.l[[iyr]]),na.rm=TRUE)
       gldr.t.sd[iyr] <- sd(unlist(gldr.m.l[[iyr]]),na.rm=TRUE)
@@ -49,11 +49,11 @@ for(i.area in 1: length(AMLR.area)){
       }
     names(coverage.p) <- NASC.yrs
     write.table(coverage.p,paste('Fig8/','coverage_p_',
-             gldr.pths,'_',AMLR.area[i.area],'_',depths[i.depth],'m.txt',sep=''))
+             n.gldr,'_',AMLR.area[i.area],'_',depths[i.depth],'m.txt',sep=''))
     } # i.depth
-  combo.files <-c(paste('coverage_p_',gldr.pths,'_SA_',
+  combo.files <-c(paste('coverage_p_',n.gldr,'_SA_',
       depths[i.depth],'m.txt',sep=''),
-      paste('coverage_p_',gldr.pths,'_WA_',depths[i.depth],'m.txt',sep=''))
+      paste('coverage_p_',n.gldr,'_WA_',depths[i.depth],'m.txt',sep=''))
   } # i.area
   combo.table <- read.table(paste('Fig8/',combo.files[1],sep=''))
   for (i in 2: length(combo.files))
@@ -66,7 +66,7 @@ for(i.area in 1: length(AMLR.area)){
   par(cex=1.3)
   y.lim <- c(min(combo.table,0.68,na.rm=TRUE),max(combo.table,na.rm=TRUE))
   plot(rownames(combo.table),combo.table[,1],type='p',pch=19,lty=1,lwd=3,col='blue',
-     main=paste('Coverage probabilities',substr(gldr.pths,1,5),depths[i.depth],'m'),
+     main=paste('Coverage probabilities',substr(n.gldr,1,5),depths[i.depth],'m'),
      ylim=y.lim,ylab='Coverage',xlab='Year')
 
   points(rownames(combo.table),combo.table[,2],pch=19,lty=2,lwd=3,col='red')
