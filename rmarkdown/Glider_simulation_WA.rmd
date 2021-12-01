@@ -2,7 +2,7 @@
 title: "Simulated underwater glider sampling for Antarctic krill"
 author:
   - Doug Kinzey, NOAA Southwest Fisheries Science Center
-date: "11/17/2021"
+date: "11/30/2021"
 output: html_document
 ---
 
@@ -13,27 +13,14 @@ knitr::opts_chunk$set(echo = TRUE)
 # Introduction
 
 
-Two functions, gldrs() and gldry(), simulate the ability of the spatial patterns of autonomous underwater gliders to sample the acoustic energy returns attributed to Antarctic krill. A database of krill acoustic densities collected during US AMLR ship surveys from two strata in CCAMLR Subarea 48.1 from 1992 to 2011 is sampled using the sawtooth vertical pattern of underwater gliders equiped with echosounders that ensonify the water column vertically 100 m below the gliders in this up and down pattern (each descent and return is called a 'yo') to a maximum depth of between 150 or 1000 m per dive in this example. Any maximum yo depth can be simulated, but the acoustic data available from US AMLR ship surveys ends at 500 m. Here the gliders ensonify the first 250 m of the water column regardless of maximum yo depth.
+Two functions, gldrs() and gldry(), simulate autonomous underwater gliders equipped with echosounders sampling in a diagonal up and down swath through the water column. A dataset of krill acoustic densities collected during US AMLR ship surveys from two strata in CCAMLR Subarea 48.1 from 1992 to 2011 is sampled using this sawtooth pattern. The ability of the samples obtained to reproduce vertically-integrated acoustic energy returns (nautical area scattering coefficients, or 'NASC') attributed to Antarctic krill is assessed. The gliders sample at a vertical angle of 22.7 degrees, or an aspect ratio of 2.22. Each descent and ascent is called a 'yo'. The echosounder in this simulation ensonifies the water column 100 m below the gliders as they descend to a maximum depth of between 150 or 1000 m per yo. Here the gliders ensonify only the first 250 m of the water column (where most krill are found) regardless of maximum yo depth.
 
-# Simulation options
-
-Place the script files 'Fig2.r' through 'Fig9.r', 'gldrs.r', 'gldry.r', and the data files 'leg1.csv' and 'NASC_leg1.RData' in the same working directory along with the rmarkdown files desired. This example uses two rmarkdown files 'Glider_simulation_SA.rmd' and 'Glider_simulation_WA.rmd'. These are for two sampling strata, the "Southern' (also called 'Bransfield Strait') and the 'Western' ('Cape Shirreff') strata. They simulate 9 replicate samples each, and take a total of 3 hours to run. Simulating more replicates takes longer, but run time can be reduced by creating rmarkdown files separately for 1 to 5 gliders in each strata and running them simultaneously on a multicore computer. Running separate rmarkdown files for each combination of simultaneous gliders takes about 23 hours for 100 replicates (the time required for the longest combination of 5 gliders sampling the 'WA' strata).  Run time can be reduced by separating simulations in the same working directory by maximum yo depth as well as strata, but all simulations should represent the same number of years for the plotting code to work properly.
-
-# Load the databases
-There are two databases: (1) 'NASC_leg1.RData' (dimensions 100 x 199772), the krill acoustic values binned into 100 m horizontal by 5 m vertical cells (transposed in the simulation functions for easier visualization), and (2) 'leg1.csv' (dimensions 199772 x 5), the unique identifiers, strata and year for each column of 'NASC_leg1.RData'.
-
-```{r load_data}
-load('NASC_leg1.RData')
-leg1 <- read.csv('leg1.csv')
-```
-
-# Input parameters
-Supply the desired inputs for the simulation in the section below.
+# Input arguments
 
 ```{r}
 NASC.yrs = c(2001:2009,2011)
 AMLR.area = 'WA'
-n.rep = 9
+n.rep = 14
 n.gldr = c(1,2,3,4,5)
 save.tables = 1
 max.NASC.m = 250
@@ -44,31 +31,44 @@ smpl.st = 0
 ```
 There are ten input parameters to run a base simulation.
 
-'NASC.yrs' are the years to be sampled, with a maximum range of 'c(2001:2009,2011)' (the sampling strata in the database were unsampled by the ships in 2010).
+'NASC.yrs' are the years to be sampled, with a maximum range of 'c(2001:2009,2011)' (the sampling strata in the dataset were unsampled by the ships in 2010).
 
 'AMLR.area' can be one of two values 'SA' (the southern area, Bransfield Strait) or 'WA' (the western area, Cape Shirreff).
 
-'n.rep' is the number of replicated sets of glider samples to collect, '9' in the example. Run-time increases with increasing replicates.
+'n.rep' is the number of replicate glider samples to collect. Run-time increases with increasing replicates.
 
-'n.gldr' is the number of gliders sampling the stratum during each replicate. It can be a scalar or a vector of values representing sequentially increasing numbers of gliders. When 'n.gldr()' is a vector it will overwrite the results with each new grouping of gliders so the simulation results in this case need to be saved as tables (save.tables = 1) and then accessed for analysis using read.table().  Run-time increases with increasing gliders/replicate. Run times for 500 replicates of 5 glider/replicate can take over a week and can run out of memory on a 24 thread 32 GB RAM PC.
+'n.gldr' is the number of gliders sampling the stratum during each replicate. It can be a scalar or a vector of values representing sequentially increasing numbers of gliders. When 'n.gldr' is a vector it will overwrite the results with each new grouping of gliders so the simulation results in this case need to be saved as tables (save.tables = 1) and then accessed for analysis using read.table().  Run-time increases with increasing gliders/replicate. Run times for 500 replicates of 5 glider/replicate can take several weeks and run out of memory on a 24 thread 32 GB RAM PC.
 
-'max.NASC.m' is the maximum depth ensonified by the gliders. In the example, the echosounder is turned off at 150 m regardless of the maximum yo depth so this is always 250m.
+'max.NASC.m' is the maximum depth ensonified by the gliders. In these simulations the echosounder is turned off at 150 m regardless of the maximum yo depth, so this is always 250m.
 
-'depths' are the maximum yo depths to be simulated.
+'depths' are the maximum yo depths to be simulated. For a given dataset of krill densities, deeper yos will obtain fewer samples.
 
-'azfp.off' is a vector of the same length as 'depths'. This allows the option to ensonify deeper during deeper dives up to the maximum depth of krill densities recorded in the database of 500 m.
+'azfp.off' is a vector of the same length as 'depths'. This allows the option to ensonify deeper during deeper dives up to the maximum depth of krill densities recorded in the dataset, 500 m in this example.
 
 'qntl.vals' allow the proportions of krill in these highly skewed distributions to be assessed.
 
-'smpl.st' allows either random (= 0) starting positions in the database for each replicate sample, or using the same starting positions (= 1) for each replicate as a previous simulation. If this option is desired, save.tables = 1 for the previous simulation, and then the 'gldr_strt_ ...' files from the first run need to be called from the second run. This option can be useful in evaluating the effects of changes in the coding on identical glider sampling patterns.
+'smpl.st' allows either random (smpl.st = 0) starting positions in the dataset for each replicate sample, or using the same starting positions (= 1) for each replicate as a previous simulation. If this option is desired, save.tables = 1 for the previous simulation, and then the 'gldr_strt_ ...' files from the first run are placed in the working directory and called using smpl.st=1. This option can be useful in evaluating the effects of coding changes on identical glider sampling patterns.
+
+# Load the datasets
+There are two datasets: (1) 'NASC_leg1.RData' (dimensions 100 x 199772), the krill acoustic values binned into 100 m horizontal by 5 m vertical cells (transposed in the simulation functions for easier visualization), and (2) 'leg1.csv' (dimensions 199772 x 5), the unique identifiers, strata and year for each column of 'NASC_leg1.RData'.
+
+```{r load_data}
+load('NASC_leg1.RData')
+leg1 <- read.csv('leg1.csv')
+```
 
 # Source the R code
-Two R scripts, 'gldry.r', and 'gldrs.r' contain two functions, 'gldry()' and 'gldrs()'. The first calculates the path a glider follows from a given starting location in the database (either random or pre-specified) and maximum yo depth. 'gldrs.r' reads the input parameters and calculates four arguments that are passed to 'gldry()'. 'gldry()' calculates the glider sampling pattern and returns this pattern and three other arguments to 'gldrs()', which then uses the resulting glider flight pattern to sample the acoustic database.
+Two R scripts, 'gldrs.r', and 'gldry.r' contain the two functions, 'gldrs()' and 'gldry(), respectively. 'gldrs()' reads the input arguments and calculates four values that are passed to 'gldry()'. 'gldry()' calculates the glider sampling pattern and returns this pattern and three other arguments to 'gldrs()', which then samples the acoustic dataset following the glider sampling pattern.
 
 ```{r}
 source('gldry.r')
 source('gldrs.r')
+```
 
+# Run the simulation
+Supply the 'Input arguments' above to 'gldrs()'.
+
+```{r}
 Sys.time() # keep track of runtime
 
 gldrs(NASC.yrs=NASC.yrs,AMLR.area=AMLR.area,n.rep=n.rep,n.gldr=n.gldr,
@@ -79,5 +79,5 @@ Sys.time()
 
 # Next steps
 
-After 'Gldr_simulation.rmd' has been rendered, the working directory will contain output files from the simulation. These can be plotted using 'Fig2.rmd' to 'Fig9.rmd'.
+After 'Gldr_simulation.rmd' has been rendered, the working directory will contain output files from the simulation in a 'Tables' subdirectory. These can be plotted using 'Figures2_7.rmd', and 'Figures8-9.rmd'.
 
