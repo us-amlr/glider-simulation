@@ -1,4 +1,3 @@
-# modified from 'C:\zot\glider\2021\9sep\sep7_mac\rmarkdown'
 
 Fig5 <- function(NASC.yrs = c(2001:2009,2011),
   AMLR.area = 'SA',
@@ -38,14 +37,14 @@ Fig5 <- function(NASC.yrs = c(2001:2009,2011),
       mae.table[iyr,] <- apply(mae.tmp,2,sum) 
       rmse.table[iyr,] <- sqrt(apply(rmse.tmp,2,sum)/
                                  nrow(gldr.smpls.yrs[,,iyr])) 
-    } # end iyr
+      } # end iyr
     mae.table <- cbind(mae.table, yo.count = as.numeric(yo.count))
     rmse.table <- cbind(rmse.table, yo.count = as.numeric(yo.count))
     dimnames(yo.count) <- list('yo.count',NASC.yrs)
     write.table(round(mae.table,1),paste(n.gldr[igldr],'_annual_mae.txt',sep=''))
     write.table(round(rmse.table,1),paste(n.gldr[igldr],'_annual_rmse.txt',sep=''))
- #  plt.name <- 'Glider & Ship Sv_log.pdf'
- #   pdf(file = plt.name) #,width=24,height=18)
+    #  plt.name <- 'Glider & Ship Sv_log.pdf'
+    #   pdf(file = plt.name) #,width=24,height=18)
     par(mfrow=c(1,1),cex=1.3,cex.lab=1.3,oma=c(2,2,2,0))
     y.lim <- c(min(c(log(ship.sums[,'sum']),
                    log(gldr.smpls.yrs[,'sum',][gldr.smpls.yrs[,'sum',]>0]),na.rm=TRUE)),
@@ -54,7 +53,7 @@ Fig5 <- function(NASC.yrs = c(2001:2009,2011),
     plot(NASC.yrs,log(ship.sums[,'sum']),type='l',col='red',
       ylim=y.lim,lwd=3,main=paste(depths[idpth],'m max yo depth',sep=''),
           ylab='',xlab = 'Year')
-      title(ylab = expression(paste('log(s' [a],')')), mgp=c(2.5,1,0))
+      title(ylab = expression(paste('log(s' [A],')')), mgp=c(2.5,1,0))
     for(i.rep in 1:n.rep){
       lines(NASC.yrs,log(gldr.smpls.yrs[i.rep,'sum',]),col='gray',lwd=3)
       points(NASC.yrs,log(ship.sums[,'sum']),col='red',pch=19)

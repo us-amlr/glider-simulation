@@ -1,8 +1,3 @@
-# reads Jan12 data
-# from C:\zot\glider\2021\10oct\oct25\oct4_vals\oct22
-# was 'R_2_rnd_gldrs_Plots&Tables.txt'
-# replaced 'gldr.smpls.sd[i.depth,iyr] <- sd(gldr.smpls.yrs[,'sd',iyr])'
-# with 'gldr.smpls.sd[i.depth,iyr] <- sd(gldr.smpls.yrs[,'sum',iyr])'
 
 Fig7 <- function(
   NASC.yrs = c(2001:2009,2011),AMLR.area = 'SA',n.rep = 9,
@@ -103,8 +98,5 @@ Fig7 <- function(
   dev.off()
 
   } # end of i.depth loop
-
-
-
 } # end Fig7()
 
