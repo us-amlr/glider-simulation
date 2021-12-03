@@ -1,7 +1,7 @@
 # glider-sampling-simulation
 Simulated underwater glider sampling for Antarctic krill
 
-To run the simulation, download the files in the 'R', 'Data' and 'rmarkdown' directories into a single working directory on your local computer. The results for one simulation of 14 replicate random samples are shown in the pdfs in the 'Main' directory for the corresponding '.rmd' files in the 'rmarkdown' directory. The resolution of the pdfs is better when they are downloaded than when they are viewed directly from GitHub. 
+To run the simulation, download the files in the 'R', 'data' and 'rmarkdown' directories into a single working directory on your local computer. The results for one simulation of 14 replicate random samples are shown in the pdfs in the 'Main' directory for the corresponding '.rmd' files in the 'rmarkdown' directory. The resolution of the pdfs is better when they are downloaded than when they are viewed directly from GitHub. 
 
 To reproduce a new randomization of these outputs, render the rmd scripts using the R package 'knitr', starting with the 'Glider_simulation...rmd' files in the 'rmarkdown' directory. The 'Glider_simulation...rmd' functions produce output files in a 'tables' directory on the local computer. The files in 'tables' may then be called from the 'Figures...rmd' files to produce the figures. In this example there is a 'Glider_simulation' rmarkdown file for each of two survey strata. These can be run simultaneously on a multicore computer to reduce run time. The simulation can also be run sequentially by stratum but it will take longer.  
 
