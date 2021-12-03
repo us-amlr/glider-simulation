@@ -1,0 +1,46 @@
+---
+title: "Glider sampling simulation figure 8"
+author:
+  - Doug Kinzey, AERD
+date: "11/17/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+NASC.yrs = c(2001:2009,2011)
+AMLR.area = c('SA','WA')
+n.rep = 9
+n.gldr = c(1,2,3)
+save.tables = 1
+max.NASC.m = 250
+depths = c(150,200,300,400)
+azfp.off = c(150,150,150,150,150,150,150) 
+qntl.vals = c(0.97,0.98,0.99,0.999,1)
+smpl.st = 1
+```
+
+# Figure 8. Approximate coverage probabilities based on 9 replicates of 1, 2, 3 and 5 gliders.
+
+```{r fig8, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
+source('Fig8.r')
+Fig8(n.gldr = 1)
+Fig8(n.gldr = 2)
+Fig8(n.gldr = 3)
+#Fig8(n.gldr = 5)
+```
+
+Figure 8. Coverage probabilities for 1, 2, 3, and 5 gliders in Bransfield Strait (BS) and Cape Shirreff (CS). The expected value of 68% is shown as the dashed black line.
+
+
+# Figure 9.
+
+```{r fig9, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
+source('Fig9.r')
+Fig9(AMLR.area='SA',n.rep,NASC.yrs,n.gldr)
+Fig9(AMLR.area='WA',n.rep,NASC.yrs,n.gldr)
+```
+Figure 9. Estimated densities using the delta distribution and yos as the sampling unit ± one SD from 500 replicates of a single glider (lines) with a maximum yo depth of 200 m for Bransfield Strait (a) and Cape Shirreff (b), and the annual mean densities of the population (points).
