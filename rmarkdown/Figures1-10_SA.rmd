@@ -1,0 +1,122 @@
+---
+title: "Glider sampling simulation figures 1 to 10"
+author:
+  - Doug Kinzey, AERD
+date: "10/28/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load the database of acoustic backscatter coefficients (s[A])
+'NASC_leg1.RData' (dimensions 100 x 199772) contains the krill nautical area scattering coefficients (s[A]) binned into 100 m horizontal by 5 m vertical cells  (transposed in the simulation functions for easier visualization).
+
+```{r load_data}
+Start.time = Sys.time()
+load('input_files/NASC_leg1.RData')
+```
+
+```{r}
+NASC.yrs = NASC.yrs
+AMLR.area = AMLR.area
+n.rep = n.rep
+n.gldr = n.gldr
+save.tables = 1
+max.NASC.m = max.NASC.m
+depths = depths
+azfp.off = azfp.off 
+qntl.vals = qntl.vals
+smpl.st = smpl.st
+```
+
+# Figure 1: map of ship acoustic transects
+```{r f1, ,fig.width=7,fig.height=7}
+source('input_files/Fig1_map.r')
+Fig1()
+```
+
+# Figure 2: Sample paths of 3 yos to maximum depth of 150 m, and 1000 m
+```{r f2, ,fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
+source('input_files/Fig2.r')
+Fig2()
+
+Fig2(yo.depths.m=rep(1000,3),max.z.m=1005)
+```
+
+Figure 2. Schematic sample path of a glider completing 3 dives at with a maximum depth of (a) 150 m and (b) 1000 m. In each case the echosounder is shut off at 150 m, but the water column is ensonified to 250 m. Black cells indicate when the echosounder is recording and light gray represents the 100 m sampled below the glider. We computed a mean backscatter across the cells within each depth bin sampled during a dive and then summed vertically to produce glider samples of depth-integrated backscatter.
+
+# Figure 3: Plot the summed s[A] at each 5m depth in the database
+
+'Fig3.r' calculates a plot of the summed s[A] values at each depth, illustrating the overall relationship of krill density with depth.
+```{r fig3, fig.width=3.5,fig.height=4}
+source('input_files/Fig3.r')
+```
+
+Figure 3. Mean nautical area backscattering coefficients (s[A], m^2 nmi^-2) in 5 m depth bins of the population being sampled by simulated gliders for both strata and all years combined.
+
+# Figure 4: Plot the CV of s[A]  and the proportion of zero density bins at each 5m depth in the database
+```{r fig4, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
+source('input_files/Fig4.r')
+```
+
+Figure 4. CVs of acoustic backscatter (left) and proportions of bins with zero acoustic energy (right) at depth in the combined database sampled by the simulated gliders.
+
+# Figure 5
+
+Figure 5 shows the fit of the glider samples ('gldr.smpls.yrs') of acoustic density (s[A]) to the operating model values ('ship.sums') for each strata and year. 'plot_Sa_fits.r' plots the fits of the glider samples (grey) to the operating model (red). Figure 5 requires 'Glider_simulation.rmd' to have been already rendered to provide the data.
+
+```{r Fig5, ,fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
+source('input_files/Fig5.r')
+Fig5(NASC.yrs=NASC.yrs,AMLR.area=AMLR.area,n.rep=n.rep,n.gldr=n.gldr,
+    qntl.vals=c(qntl.vals),depths=depths,azfp.off=azfp.off)
+```
+
+Figure 5. Annual glider log sample means and SDs (blue) from individual replicates (gray) of 1 glider with a maximum yo depth of 150 m sampling acoustic energy (s[A]) with individual yos as sampling units. In all plots, the population means (from the original ship surveys) are in red.
+
+# Figure 6
+
+The acoustic densities at depth from the ship surveys (the 'operating model') and the sampled densities from all replicate gliders, from one glider, and from five gliders at depth.
+
+```{r fig6, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
+source('input_files/Fig6.r')
+Fig6(depths=depths[1],AMLR.area=AMLR.area,max.z.b = 50,n.gldr=n.gldr,
+     NASC.yrs=NASC.yrs,n.rep=n.rep)
+```
+Figure 6. Mean acoustic energies with depth each year attributed to krill in the sampled population and as sampled by different numbers of gliders with maximum yo depths of 150 m. 
+
+# Figure 7
+
+These example contour plots represent from 1 to 5 gliders sampling the database of acoustic densities. More replicates (i.e., 500) would illustrate the statistical fits more accurately, but can require several weeks of run time.
+
+```{r fig7, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
+source('input_files/Fig7.r')
+for(i.gldr in 1:length(n.gldr))
+  Fig7(n.gldr = n.gldr[i.gldr],NASC.yrs=NASC.yrs,AMLR.area=AMLR.area,n.rep=n.rep,
+     qntl.vals=c(qntl.vals,'sum','sd'),depths=depths)
+```
+
+Contour plots of numbers of glider combinations X maximum depth X year require at least 3 maximum yo depths and at least 3 glider combinations (i.e., 1 to 5 gliders per replicate).
+
+```{r fig7&8_contours, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
+source('input_files/Fig7&8contour.r')
+Fig7.8contours(n.gldr = n.gldr,NASC.yrs=NASC.yrs,AMLR.area=AMLR.area,
+              n.rep=n.rep,depths=depths)
+```
+
+```{r fig9_coverage, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
+source('input_files/Fig9.r')
+Fig9(n.gldr=c(1,3,5),depths=c(150,1000))
+```
+
+```{r fig10_delta, fig.width=7,fig.height=7, fig.show="hold", out.width="50%"}
+source('input_files/Fig10.r')
+Fig10(n.gldr = n.gldr,NASC.yrs=NASC.yrs,AMLR.area='SA',
+              n.rep=n.rep)
+Fig10(n.gldr = n.gldr,NASC.yrs=NASC.yrs,AMLR.area='WA',
+              n.rep=n.rep)
+Start.time
+Sys.time()
+```
+
