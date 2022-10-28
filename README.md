@@ -5,7 +5,7 @@ To run the simulation, download the files in the 'input_files' and 'rmarkdown' d
 
 To reproduce these outputs, start with the 'Glider_simulation...rmd' scripts in the 'rmarkdown' directory. I use the R package 'rmarkdown' with 'pandoc' installed to apply the command "rmarkdown::render('filename.rmd','pdf_document')" for this. The two .rmd files 'Glider_simulation...rmd' create a 'tables' directory on the local computer to store the simulation outputs. The 6-replicate simulation in this example produced about 1.57 GB of output files (not included in this repository). The files in 'tables' may then be called from the 'Figures...rmd' scripts to produce the figures. In this example there is a 'Glider_simulation' rmarkdown script for each of the two survey strata. These can be run simultaneously on a multicore computer to reduce run time. The simulation can also be run sequentially by stratum but it will take longer.  
 
-The rmarkdown file 'Glider_simulation_WA.rmd' takes the most time, about 3 hours. More replicates will produce better statistical results but require more time and produce more output. 
+The rmarkdown file 'Glider_simulation_WA.rmd' takes the most time, about 3 hours. More replicates will produce better statistical results but require more time and produce more stored output. 
 
 The data sampled in the simulations are acoustic densities of krill from AMLR research ship surveys in two sampling strata around the Antarctic Peninsula: the Southern Area ('SA', also called Bransfield Strait) and the Western Area ('WA', also called Cape Shirreff). 'Figures1-10_SA.rmd' and 'Figures1-10_WA.rmd' produce the Figures for each of the two strata.
 
