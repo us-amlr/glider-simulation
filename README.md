@@ -7,7 +7,7 @@ To reproduce these results, download the files in the 'input_files' and 'rmarkdo
 
 The rmarkdown file 'Glider_simulation_WA.rmd' takes the most time, about 3 hours. Both the 'Glider_simulation_WA.rmd' and 'Glider_simulation_SA.rmd' must finish before running the 'Figures1-10' rmd files because Fig. 9 plots results from both strata. More replicates will produce better statistical results but require more time and produce more stored output. 
 
-The data sampled in the simulations are acoustic densities of krill from AMLR research ship surveys in two sampling strata around the Antarctic Peninsula: the Southern Area ('SA', also called Bransfield Strait) and the Western Area ('WA', also called Cape Shirreff). Acoustic densities at depth (Nautical Area Scattering Coefficients, 'NASC') attributed to krill from 10 years of ship surveys (2001-2001,2011) from these two strata are binned in 100 m long by 5 m deep cells in the input data file 'NASC_leg1.RData'.
+The data sampled in the simulations are acoustic densities of krill from AMLR research ship surveys in two sampling strata around the Antarctic Peninsula: the Southern Area ('SA', also called Bransfield Strait) and the Western Area ('WA', also called Cape Shirreff). Acoustic densities at depth (Nautical Area Scattering Coefficients, 'NASC') attributed to krill from 10 years of ship surveys (2001-2001,2011) from these two strata are binned in 100 m long by 5 m deep cells down to 250 m (50 cells deep) in the input data file 'NASC_leg1.RData'.
 
 # Disclaimer
 
