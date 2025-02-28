@@ -1,5 +1,5 @@
 # glider-sampling-simulation
-Simulated underwater glider sampling for Antarctic krill
+Simulated underwater glider sampling for Antarctic krill, for manuscript [Kinzey et al. 2022](https://doi.org/10.3389/fmars.2022.1064181)
 
 This repository contains the data and code used to generate the model results discussed in 'Acoustic sampling of Antarctic krill with simulated underwater buoyancy gliders: does the sawtooth dive pattern work?' (Kinzey et al., 2022). The results in the article were produced by simulating 500 replicate samples - the examples in the repository use only 6 replicates to reduce run time and output file sizes.
 
@@ -12,7 +12,7 @@ The rmarkdown file 'Glider_simulation_WA.rmd' takes the most time, about 3 hours
 The data sampled in the simulations are acoustic densities of krill from AMLR research ship surveys in two sampling strata around the Antarctic Peninsula: the Southern Area ('SA', also called Bransfield Strait) and the Western Area ('WA', also called Cape Shirreff). Acoustic densities at depth (Nautical Area Scattering Coefficients, 'NASC') attributed to krill from 10 years of ship surveys (2001-2009, 2011) from these two strata are binned in 100 m long by 5 m deep cells down to 250 m (50 cells deep) in the input data file 'NASC_leg1.RData'.
 
 Kinzey D, Cossio AM, Reiss CS and Watters GM (2022) Acoustic sampling of Antarctic krill with simulated underwater buoyancy gliders: Does
-the sawtooth dive pattern work? Front. Mar. Sci. 9:1064181. doi: 10.3389/fmars.2022.1064181
+the sawtooth dive pattern work? Front. Mar. Sci. 9:1064181. doi: [10.3389/fmars.2022.1064181](https://doi.org/10.3389/fmars.2022.1064181)
 
 # Disclaimer
 
